@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form class="form">
+    <div class="input-group">
+        <select name="field">
+            {% for field in fields %}
+                {% if field_selected == field%}
+                    <option value="{{ field }}" selected>{{ field|capfirst }}</option>
+                {% else %}
+                    <option value="{{ field }}">{{ field|capfirst }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <input type="text" class="form-control rounded" placeholder="Keyword" name="keyword" aria-label="Search"
+            aria-describedby="search-addon" value="{{ keyword | default:'' }}"/>
+        <input type="submit" value="Search" class="btn btn-outline-primary">
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Count</th>
+        <th>Cost</th>
+        <th>Category</th>
+        <th>
+            <a href="{% url 'item_create' %}" class="btn btn-success">Create</a>
+        </th>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.code }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.count }}</td>
+            <td>{{ item.cost }}</td>
+            <td>{{ item.category }}</td>
+            <td>
+                <a href="{% url 'item_detail' item.id %}" class="btn btn-info">View</a>
+                <a href="{% url 'item_update' item.id %}" class="btn btn-warning">Update</a>
+                <a href="{% url 'item_delete' item.id %}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

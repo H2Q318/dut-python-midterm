@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ item.name|capfirst|default:'' }}!</h1>
+<p>Mã mặt hàng: {{ item.code }}</p>
+<p>Số lượng: {{ item.count }}</p>
+<p>Giá: {{ item.cost }}</p>
+<p>Mô tả: {{ item.desciption|default:'' }}</p>
+{% endblock %}
